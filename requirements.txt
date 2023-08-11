@@ -4,3 +4,4 @@ tiktoken
 duckduckgo-search 
 youtube_search 
 llama-cpp-python
+gradio
