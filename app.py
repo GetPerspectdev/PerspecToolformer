@@ -17,16 +17,16 @@ You are constructively critical and will avoid being too nice, as that could inc
 If you are unable to find anything, you will truthfully tell them they are doing great or that you don't know.
 
 ###Input:
-Message History: {summary}
-{new_lines}
+Message History:
+{messages}
 
 ###Response:
-Psychologist: Here's how you can improve:"""
+Thinking through this step-by-step, you can improve your toxicity by"""
 
-toxic_prompt_template = PromptTemplate(input_variables=["summary", "new_lines"], template=toxic_template)
+toxic_prompt_template = PromptTemplate(input_variables=['messages'], template=toxic_template)
 
 llm = LlamaCpp(
-    model_path="./models/hermes-llongma-2-7b-8k.ggmlv3.q2_k.bin",
+    model_path="./models/hermes-llongma-2-7b-8k.ggmlv3.q2_K.bin",
     n_gpu_layers=0,
     n_batch=512,
     n_ctx=8000,
@@ -42,10 +42,11 @@ Given a summary from another expert, rate the messages on a scale of 1-100 for h
 Please respond with only an integer between 1 and 100.
 
 ###Input:
+An expert previously said this: {synopsis}
 
 
 ###Response:
-Review from a New York Times play critic of the above play:"""
+Your Toxicity rating from 1-100 is """
 
 number_prompt_template = PromptTemplate(input_variables=["synopsis"], template=number_template)
 
@@ -61,15 +62,16 @@ overall_chain = SimpleSequentialChain(chains= [toxicity_chain, review_chain],
 
 
 def predict_convo(input=""):
-    review = overall_chain.run(input)
-    return json.dump({"review": review})
+    toxicity = overall_chain.run(input)
+    obj = json.dumps({"toxicity": toxicity}, indent=4)
+    return obj
 
 with gr.Blocks() as app:
     messages = gr.Textbox(label="messages")
 
     gr.Examples(
         [
-            ["You're the best!\nWe can do it.\nYou've never been good enough.\nI can take care of that whenever.\nsup bro\nHow do we know when we're done?\nAre you going to be in the office today?\nHow long does it take to get there?\nI'll be there in about 30 minutes\nWhy are you always constantly late?"],
+            ["Brent:You're the best!\nJake:We can do it.\nBrent:You've never been good enough.\nJake:I can take care of that whenever.\nBrent:sup bro\nJake:How do we know when we're done?\nBrent:Are you going to be in the office today?\nJake:How long does it take to get there?\nBrent:I'll be there in about 30 minutes\nJake:Why are you always constantly late?"],
         ],
         inputs=[messages]
     )
