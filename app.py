@@ -176,9 +176,9 @@ if __name__ == "__main__":
 
     number_template = """Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
     ###Instruction:
-    You are an expert witness specializing in toxicity and empathy.
-    Given a summary from another expert, rate the messages on a scale of 1-100 for how toxic they are.
-    Please respond with only an integer between 1 and 100.
+    You are an expert witness specializing in empathy, toxicity, and professionalism.
+    Given a summary from another expert, rate the messages on a scale of 1-100 for how professional they are (higher scores indicate more professional messages).
+    Please respond with only an integer between 1 and 100 and end after that integer.
 
     ###Input:
     Message History: {message_history}
@@ -188,11 +188,11 @@ if __name__ == "__main__":
 
 
     ###Response:
-    Your Toxicity rating from 1-100 is """
+    Your Professionalism rating from 1-100 is """
 
     llm = LlamaCpp(
-                model_path="./models/hermes-llongma-2-7b-8k.ggmlv3.q2_K.bin",
-                n_gpu_layers=0,
+                model_path="./models/llongma-7b-gguf-q2_K.bin",
+                n_gpu_layers=1,
                 n_batch=512,
                 n_ctx=8000,
                 verbose=True
