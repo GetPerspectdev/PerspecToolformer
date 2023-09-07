@@ -26,7 +26,7 @@ Thinking through this step-by-step, you can improve your toxicity by"""
 toxic_prompt_template = PromptTemplate(input_variables=['messages'], template=toxic_template)
 
 llm = LlamaCpp(
-    model_path="./models/hermes-llongma-2-7b-8k.ggmlv3.q5_K_M.bin",
+    model_path="./models/llongma-13b-gguf-q5_K_M.bin",
     n_gpu_layers=0,
     n_batch=512,
     n_ctx=8000,
