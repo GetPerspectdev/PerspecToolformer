@@ -5,6 +5,6 @@ duckduckgo-search
 youtube_search 
 llama-cpp-python
 gradio
-gpt4all
+gpt4all==1.0.8
 nest_asyncio
 flask

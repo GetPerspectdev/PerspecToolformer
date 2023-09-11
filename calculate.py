@@ -187,7 +187,7 @@ Context:
 Your Professionalism rating from 1-100 is """
 
 llm = LlamaCpp(
-            model_path="../archetypes/models/llongma-7b-gguf-q5_K_M.bin",
+            model_path="./models/llongma-7b-gguf-q5_K_M.bin",
             n_gpu_layers=1,
             n_batch=512,
             n_ctx=8000,
